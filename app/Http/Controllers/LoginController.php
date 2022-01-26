@@ -29,11 +29,19 @@ class LoginController extends Controller
             return redirect("/login")->with("error","Login Gagal");
         }
     }
-    public function register()
-    {
+    public function forget(){
+        return view("forget");
+    }
+    public function postForget(){
+        $request->validate(['email' => 'required|email']);
+        $status = Password::sendResetLink($request->only('email'));
+        return $status === Password::RESET_LINK_SENT? back()->with(['status' => __($status)]) : back()->withErrors(['email' => __($status)]);
+    }
+    public function register(){
         return view("register");
     }
     public function postRegister(Request $req){
+
         $req->validate([
             'username' => 'required',
             'email' => 'required|email|unique:users,email',

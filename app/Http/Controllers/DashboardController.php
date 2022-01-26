@@ -45,8 +45,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        $satuan = Satuan::all();
-        return view("barang/add",compact('satuan'));
+
     }
 
     /**
@@ -93,8 +92,7 @@ class DashboardController extends Controller
      */
     public function edit(Barang $barang)
     {
-        $satuan = Satuan::all();
-        return view("barang/edit",compact('barang','satuan'));
+       
     }
 
     /**
@@ -106,20 +104,7 @@ class DashboardController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        $request->validate([
-            "nama" =>"required",
-            "kode" =>"required|exists:barang,kode_barang",
-            "harga"=>"required|numeric",
-            "des"=>"required",
-            "satuan"=>"required|exists:satuan,id"
-        ]);
-        $barang->nama_barang = $request->nama;
-        $barang->kode_barang = $request->kode;
-        $barang->harga_barang = $request->harga;
-        $barang->deskripsi_barang = $request->des;
-        $barang->satuan_id = $request->satuan;
-        $barang->save();
-        return redirect()->action([BarangController::class, 'index'])->with("info","Data telah diedit");
+        
     }
 
     /**
@@ -130,8 +115,6 @@ class DashboardController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        $barang->delete();
-
-        return redirect()->action([BarangController::class, 'index'])->with("info","Data telah dihapus");
+       
     }
 }

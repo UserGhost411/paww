@@ -71,15 +71,6 @@ class ProcessController extends Controller
      */
     public function store(Request $request)
     {
-        $doc = new Document;
-        $doc->doc_title = $request->title;
-        $doc->doc_description = $request->des;
-        $doc->flow_step = 1;
-        $doc->doc_status = 0;
-        $doc->doc_flow = $request->flow;
-        $doc->doc_author = 1;
-        $doc->save();
-        return redirect()->action([DocumentController::class, 'index'])->with("info","Data telah ditambahkan");
     }
 
     /**

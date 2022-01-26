@@ -39,3 +39,5 @@ Route::get('/login', [LoginController::class, 'index'])->name("login");
 Route::post('/login', [LoginController::class, 'postLogin']);
 Route::get('/register', [LoginController::class, 'register'])->name("register");
 Route::post('/register', [LoginController::class, 'postRegister']);
+Route::get('/forget', [LoginController::class, 'forget'])->name("forget");
+Route::post('/forget', [LoginController::class, 'postForget']);
