@@ -38,11 +38,11 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Username</label>
+                                    <label>Username or email *</label>
                                     <input type="text" class="form-control p_input" name="username" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>Password *</label>
                                     <input type="password" class="form-control p_input" name="password" required>
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between">
@@ -56,7 +56,7 @@
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
                                 </div>
 
-                                <p class="sign-up">Don't have an Account?<a href="{{ route('register') }}"> Sign Up</a></p>
+                                <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p>
                             </form>
                         </div>
                     </div>

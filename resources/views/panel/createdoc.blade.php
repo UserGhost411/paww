@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h4 class="card-title">Submit Dokumen Baru</h4>
                 <p class="card-description"> Buat Dokumen Baru </p>
-                <form method="POST" action="{{ route('document.store') }}">
+                <form method="POST" action="{{ route('document.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputName1">Judul Dokumen</label>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label>Unggah Dokumen</label>
-                        <input type="file" name="img[]" class="file-upload-default">
+                        <input type="file" name="docfile" class="file-upload-default" required>
                         <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Unggah Dokumen">
                             <span class="input-group-append">

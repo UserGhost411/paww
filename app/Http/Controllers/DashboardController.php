@@ -32,6 +32,7 @@ class DashboardController extends Controller
         ->join('document_flow', 'documents.doc_flow', '=', 'document_flow.id','')
         ->groupBy("documents.id")
         ->get();
+       
         $statustext = ['Pending','Done','Declined','Cancelled'];
         $statusclass = ['warning','success','danger','info'];
         return view("panel/dashboard",compact('status','doc','statustext','statusclass'));

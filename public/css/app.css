@@ -21281,7 +21281,13 @@ div.tagsinput {
   width: 100%;
   -webkit-flex-grow: 1;
   flex-grow: 1; }
-
+.profile-user-img {
+  border: 3px solid #ccc;
+  margin: 0 auto;
+  padding: 3px;
+  width: 200px;
+  height: 200px;
+}
 /*# sourceMappingURL=maps/style.css.map */
 
 ul.timeline {

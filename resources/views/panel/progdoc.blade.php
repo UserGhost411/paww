@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 grid-margin">
+    <div class="col-md-12 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Data Dokumen</h4>

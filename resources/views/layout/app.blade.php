@@ -16,7 +16,9 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          Any Logo?
+        <span style="padding-right:3px; padding-top: 3px; display:block;">
+          <img style="display: inline-block; margin: 15px;float: left;height: 100px;width: auto;" src="{{ asset('img/logo.png') }}"/>
+        </span>
         </div>
         <ul class="nav">
         
@@ -59,7 +61,7 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('document.index') }}"> Semua Dokumen </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('document.index') }}"> Daftar Dokumen </a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('document.active') }}"> Dokumen Aktif </a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('document.nonactive') }}"> Dokumen Usang </a></li>
               </ul>
@@ -74,7 +76,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="https://google.com">
+            <a class="nav-link" href="{{ route('documentation') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>

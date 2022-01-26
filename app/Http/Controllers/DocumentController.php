@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DocumentCategory;
 use App\Models\DocumentFlow;
 use App\Models\Flows;
+use App\Models\Files;
 
 class DocumentController extends Controller
 {
@@ -75,6 +77,9 @@ class DocumentController extends Controller
 
         return view("panel/listdoc",compact('doc','statustext','statusclass','title'));
     }
+    public function download(Files $file){
+        return Storage::download($file->file_filepath,$file->file_name);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -92,16 +97,34 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'flow' => 'required|exists:document_flow,id',
+            'des' => 'required',
+            'docfile' => 'required|file'
+        ]);
+
         $doc = new Document;
         $doc->doc_title = $request->title;
         $doc->doc_description = $request->des;
         $doc->flow_step = 1;
         $doc->doc_status = 0;
         $doc->doc_flow = $request->flow;
-        $doc->doc_author = 1;
+        $doc->doc_author = Auth::id();
         $doc->save();
+        $file = $request->file('docfile');
+        $path = $request->file('docfile')->store('');
+        $newfiles = new Files;
+        $newfiles->file_filepath = $path;
+        $newfiles->file_name = $file->getClientOriginalName();
+        $newfiles->file_uploader = Auth::id();
+        $newfiles->file_document = $doc->id;
+        $newfiles->file_origin = true;
+        $newfiles->save();
+
         return redirect()->action([DocumentController::class, 'index'])->with("info","Data telah ditambahkan");
     }
 
@@ -122,6 +145,11 @@ class DocumentController extends Controller
         ->leftJoin('document_process', function ($join) use ($doc) {
             $join->on('document_process.process_flows', '=', 'flows.id')->where('document_process.process_document', $doc->id);
         })->get();
+        $files = DB::table('files')
+        ->selectRaw("files.*,users.displayname")
+        ->where('file_document', $doc->id)
+        ->join('users', 'users.id', '=', 'files.file_uploader','')
+        ->get();
         $logs = DB::table('document_logs')
         ->selectRaw("document_logs.*,users.displayname,flows.flow_title")
         ->where('document_logs.log_document', $doc->id)
@@ -133,7 +161,7 @@ class DocumentController extends Controller
         $statusdes = ['Dokumen Anda Sedang dalam List Antrian','Dokumen Anda Sedang dalam Pemrosesan','Dokumen anda Telah diverifikasi dan diProses','Dokumen anda Ditolak Tanpa Alasan','Dokumen anda telah dibatalkan'];
         //return $logs;
         
-        return view("panel/viewdoc",compact('doc','flows','statustext','statusclass','statusdes','logs'));
+        return view("panel/viewdoc",compact('doc','flows','statustext','statusclass','statusdes','logs','files'));
     }
 
     /**

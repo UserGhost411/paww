@@ -19,11 +19,10 @@
                         </thead>
                         <tbody>
                             @foreach ($doc as $val)
-                            
                             @if($a::checkif($val->id))
                             <tr>
                                 <td>
-                                    <span class="pl-2"><a href="{{ route('document.show',[$val->id]) }}">{{ $val->doc_title }}</a> {{ $val->id }} {{ $val->doc_flow }}</span>
+                                    <span class="pl-2">{{ $val->doc_title }}</span>
                                 </td>
                                 <td> {{ $val->docflow_title }} </td>
                                 <td> {{ $val->displayname }} </td>
