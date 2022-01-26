@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -21,7 +23,7 @@ class LoginController extends Controller
     }
 
     public function postLogin(Request $req){
-        if (Auth::attempt(["username" =>  $req->username, "password" => $req->password])){
+        if (Auth::attempt(["username" =>  $req->username, "password" => $req->password],$req->remember)){
             return redirect("/dashboard");
         } else {
             return redirect("/login")->with("error","Login Gagal");
@@ -32,11 +34,24 @@ class LoginController extends Controller
         return view("register");
     }
     public function postRegister(Request $req){
-        if (Auth::attempt(["username" =>  $req->username, "password" => $req->password])){
-            return redirect("/dashboard");
-        } else {
-            return redirect("/login")->with("error","Login Gagal");
+        $req->validate([
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'displayname' => 'required',
+            'password' => 'required',
+            'repassword' => 'required',
+        ]);
+        if( $req->password == $req->repassword){
+            $newuser = new User;
+            $newuser->username = $req->username;
+            $newuser->displayname = $req->displayname;
+            $newuser->email = $req->email;
+            $newuser->password = Hash::make($req->password);
+            $newuser->level = 1;
+            $newuser->save();
+            return redirect("/login");
         }
+        return redirect()->back();
     }
     public function logout(Request $request)
     {

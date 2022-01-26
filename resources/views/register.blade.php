@@ -35,7 +35,7 @@
                             <div class="alert alert-warning alert-block"><strong>{{ $message }}</strong></div>
                             @endif
                             <!-- Login submission form-->
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="form-group">
                                     <label>Username <span style="color:red">*</span></label>
@@ -56,7 +56,6 @@
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
                                 </div>
-
                                 <p class="sign-up">Already have an Account?<a href="{{ route('login') }}"> Sign In</a></p>
                             </form>
                         </div>

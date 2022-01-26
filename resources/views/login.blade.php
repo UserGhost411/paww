@@ -48,7 +48,7 @@
                                 <div class="form-group d-flex align-items-center justify-content-between">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input"> Remember me </label>
+                                            <input type="checkbox" name="remember" class="form-check-input"> Remember me </label>
                                     </div>
                                     <a href="#" class="forgot-pass">Forgot password</a>
                                 </div>
