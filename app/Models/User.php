@@ -21,6 +21,9 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'level',
+        'displayname',
+        'pp',
     ];
 
     /**

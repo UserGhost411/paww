@@ -37,19 +37,19 @@ class LoginController extends Controller
         $req->validate([
             'username' => 'required',
             'email' => 'required|email|unique:users,email',
-            'displayname' => 'required',
             'password' => 'required',
             'repassword' => 'required',
         ]);
+      
         if( $req->password == $req->repassword){
             $newuser = new User;
             $newuser->username = $req->username;
-            $newuser->displayname = $req->displayname;
+            $newuser->displayname = $req->username;
             $newuser->email = $req->email;
             $newuser->password = Hash::make($req->password);
             $newuser->level = 1;
             $newuser->save();
-            return redirect("/login");
+            return redirect("/login")->with("error","Silakan Login Ulang");;
         }
         return redirect()->back();
     }
