@@ -32,10 +32,20 @@ class DashboardController extends Controller
         ->join('document_flow', 'documents.doc_flow', '=', 'document_flow.id','')
         ->groupBy("documents.id")
         ->get();
-       
+        $linamasa = DB::table('documents')
+        ->selectRaw("documents.*,
+        (select displayname from users where id=(select flow_actor from flows where flow_id=documents.doc_flow Order by id desc limit 1)) as last_actor,
+        count(flows.flow_title) as flow_total_step,
+        (flow_step-1) as flow_active_step,
+        document_flow.docflow_title")
+        ->where('doc_author', Auth::id())
+        ->join('flows', 'documents.doc_flow', '=', 'flows.flow_id','')
+        ->join('document_flow', 'documents.doc_flow', '=', 'document_flow.id','')
+        ->groupBy("documents.id")
+        ->get();
         $statustext = ['Pending','Done','Declined','Cancelled'];
         $statusclass = ['warning','success','danger','info'];
-        return view("panel/dashboard",compact('status','doc','statustext','statusclass'));
+        return view("panel/dashboard",compact('linamasa','status','doc','statustext','statusclass'));
     }
 
     /**

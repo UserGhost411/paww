@@ -120,40 +120,20 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Linimasa</h4>
-
+                @foreach ($linamasa as $val)
                 <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                     <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Document Approved</h6>
-                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                        <h6 class="mb-1">Dokumen {{ $statustext[$val->doc_status] }}</h6>
+                        <p class="text-muted mb-0">{{ date("d M Y, H:i",strtotime($val->updated_at)) }}</p>
                     </div>
                     <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
                         <h6 class="font-weight-bold mb-0">
-                            <div class="badge badge-outline-success">Kemahasiswaan</div>
+                            <div class="badge badge-outline-success">{{ $val->last_actor }}</div>
                         </h6>
                     </div>
                 </div>
-                <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                    <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Document Rejected</h6>
-                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                    </div>
-                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">
-                            <div class="badge badge-outline-success">Kemahasiswaan</div>
-                        </h6>
-                    </div>
-                </div>
-                <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                    <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Document Rejected</h6>
-                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                    </div>
-                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">
-                            <div class="badge badge-outline-success">Kemahasiswaan</div>
-                        </h6>
-                    </div>
-                </div>
+                @endforeach
+         
             </div>
         </div>
     </div>

@@ -43,6 +43,16 @@
             </a>
           </li>
           @endif
+          @if(Auth::user()->level==3)
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('documentflow.index') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">Alur Dokumen</span>
+            </a>
+          </li>
+          @endif
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('document.create') }}">
               <span class="menu-icon">
@@ -181,8 +191,8 @@
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © UserGhost411</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> {APP_NAME} Version 1.0</span>
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Sistem Informasi Institut Telkom Surabaya</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> SATAP Version 1.0</span>
             </div>
           </footer>
           <!-- partial -->

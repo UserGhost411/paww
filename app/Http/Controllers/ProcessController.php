@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ProcessController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if(Auth::user()->level!=2) return abort(404);
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

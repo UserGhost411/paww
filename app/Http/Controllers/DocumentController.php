@@ -21,7 +21,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $title = "Semua Dokumen";
+        $title = "Daftar Dokumen";
         $statustext = ['Pending','Done','Declined','Cancelled'];
         $statusclass = ['warning','success','danger','info'];
         $doc = DB::table('documents')
@@ -35,7 +35,6 @@ class DocumentController extends Controller
             ->join('document_flow', 'documents.doc_flow', '=', 'document_flow.id','')
             ->groupBy("documents.id")
             ->get();
-
         return view("panel/listdoc",compact('doc','statustext','statusclass','title'));
     }
 
@@ -184,7 +183,8 @@ class DocumentController extends Controller
      */
     public function update(Request $request, Document $document)
     {
-        //
+        $document->doc_status=3;
+        $document->save();
     }
 
     /**

@@ -14,6 +14,14 @@
                     <label for="exampleTextarea1">Deskripsi</label>
                     <textarea name="des" class="form-control" id="exampleTextarea1" rows="4" placeholder="..." readonly>{{ $doc->doc_description }}</textarea>
                 </div>
+                @if($doc->doc_status<1)
+                <form method="POST" action="{{ route('document.update',[$doc->id]) }}" style="text-align:center;">
+                    @csrf
+                    @method('put')
+                    <input type="hidden" name="xx" value="1"/>
+                    <button type="submit" name="act" value="acc" class="btn btn-danger btn-fw">Batalkan Dokumen</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>

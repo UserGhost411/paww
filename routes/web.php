@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProcessController;
+use App\Http\Controllers\DocumentFlowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,8 @@ Route::match( ['put', 'patch'], '/process/{document}', [ProcessController::class
 Route::resource('/profile', ProfileController::class,['except' => ['update','edit','store','destroy','create']])->middleware('auth');
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name("profile.upload")->middleware('auth');
 Route::match( ['put', 'patch'], '/profile', [ProfileController::class, 'update'])->name("profile.update")->middleware('auth');
-Route::post('/process/upload', [ProcessController::class, 'upload'])->name("process.commit.upload");
+Route::post('/process/upload', [ProcessController::class, 'upload'])->name("process.commit.upload")->middleware('auth');
+Route::resource('/documentflow', DocumentFlowController::class)->middleware('auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 Route::get('/login', [LoginController::class, 'index'])->name("login");
 Route::post('/login', [LoginController::class, 'postLogin']);
