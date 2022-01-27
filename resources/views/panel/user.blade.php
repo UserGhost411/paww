@@ -31,7 +31,16 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputName1">Email</label>
-                        <input type="email" class="form-control" name="email" id="exampleInputName1" placeholder="Enter Email" value="{{ $user->email }}" required>
+                        <input type="email" class="form-control" name="email" id="exampleInputName1" placeholder="Enter Email" value="{{ $user->email }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelectGender">User Level</label>
+                        <select class="form-control" name="level" id="exampleSelectGender">
+                            <option value="0" {{ $user->level==0?'selected':'' }}>Blocked</option>
+                            <option value="1" {{ $user->level==1?'selected':'' }}>User</option>
+                            <option value="2" {{ $user->level==2?'selected':'' }}>Management</option>
+                            <option value="3" {{ $user->level==3?'selected':'' }}>Administrator</option>
+                        </select>
                     </div>
                     <button class="btn btn-primary btn-fw" type="submit">Simpan Profile</button>
                    

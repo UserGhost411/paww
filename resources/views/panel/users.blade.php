@@ -27,12 +27,12 @@
                                     {{ $val->displayname }}
                                 </td>
                                 <td>
-                                    <div class="badge badge-outline-success">{{ $val->level }}</div>
+                                    <div class="badge badge-outline-success">{{ $priv[$val->level] }}</div>
                                 </td>
                                 
                                 <td> {{ $val->email }} </td>
                                 <td>
-                                    
+                                    <a class="btn btn-primary" href="{{ route('user.show',[$val->id]) }}">Periksa</a>
                                 </td>
                             </tr>
                             @endforeach

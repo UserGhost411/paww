@@ -33,7 +33,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view("panel/users",compact('users'));
+        $priv = ['Blocked','User','Management','Admin'];
+        return view("panel/users",compact('users','priv'));
     }
     /**
      * Show the form for creating a new resource.
@@ -87,8 +88,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'username' => 'required',
+            'displayname' => 'required',
+            'level'=>'required'
+        ]);
+        $user->username=$request->username;
+        $user->level = $request->level;
+        $user->displayname=$request->displayname;
         $user->save();
-        return redirect()->route('user.index');
+        return redirect()->route('user.show',[$user->id]);
     }
 
     /**

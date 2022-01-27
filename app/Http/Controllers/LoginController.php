@@ -24,6 +24,10 @@ class LoginController extends Controller
 
     public function postLogin(Request $req){
         if (Auth::attempt(["username" =>  $req->username, "password" => $req->password],$req->remember)){
+            if(Auth::user()->level==0){
+                Auth::logout();
+                return redirect("/login")->with("error","Login Gagal");
+            }
             return redirect("/dashboard");
         } else {
             return redirect("/login")->with("error","Login Gagal");
