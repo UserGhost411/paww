@@ -2,7 +2,7 @@
 @section('title', 'Buat Dokumen Baru')
 @section('content')
 <div class="row">
-    <div class="col-6 grid-margin stretch-card">
+    <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Informasi Dokumen</h4>
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6 grid-margin stretch-card">
+    <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Informasi Dokumen</h4>

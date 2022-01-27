@@ -20,7 +20,7 @@ class User extends Seeder
             'displayname' => 'UserGhost411',
             'email' => 'userghosts411@gmail.com',
             'password' => Hash::make('123'),
-            'level' => 1,
+            'level' => 3,
         ]);
         DB::table('users')->insert([
             'username' => 'dpm',
@@ -36,7 +36,13 @@ class User extends Seeder
             'password' => Hash::make('123'),
             'level' => 2,
         ]);
-       
+        DB::table('users')->insert([
+            'username' => 'user',
+            'displayname' => 'user',
+            'email' => 'user@user.com',
+            'password' => Hash::make('123'),
+            'level' => 1,
+        ]);
         DB::table('document_category')->insert([
             'category_name' => 'UKM',
             'category_description' => 'TEsting Dokumen',
@@ -56,46 +62,6 @@ class User extends Seeder
             'docflow_description' => 'TEsting Dokumen',
             'docflow_category' => 1,
         ]);
-        // DB::table('documents')->insert([
-        //     'doc_title' => 'RAB UKM Cycology',
-        //     'doc_description' => 'TEsting Dokumen',
-        //     'flow_step' => 0,
-        //     'doc_author' => 1,
-        //     'doc_status' => 0,
-        //     'doc_flow'=>1,
-        // ]);
-        // DB::table('documents')->insert([
-        //     'doc_title' => 'Proposal Acara Apa gitu',
-        //     'doc_description' => 'TEsting Dokumen',
-        //     'flow_step' => 1,
-        //     'doc_author' => 1,
-        //     'doc_status' => 0,
-        //     'doc_flow'=>2,
-        // ]);
-        // DB::table('documents')->insert([
-        //     'doc_title' => 'Bikin Minecraft Kampus',
-        //     'doc_description' => 'TEsting Dokumen',
-        //     'flow_step' => 1,
-        //     'doc_author' => 1,
-        //     'doc_status' => 2,
-        //     'doc_flow'=>1,
-        // ]);
-        // DB::table('documents')->insert([
-        //     'doc_title' => 'Bikin ntahlahasxx',
-        //     'doc_description' => 'TEsting Dokumen',
-        //     'flow_step' => 2,
-        //     'doc_author' => 1,
-        //     'doc_status' => 1,
-        //     'doc_flow'=>3,
-        // ]);
-        // DB::table('documents')->insert([
-        //     'doc_title' => 'Bikin miawmiaw',
-        //     'doc_description' => 'TEsting Dokumen',
-        //     'flow_step' => 0,
-        //     'doc_author' => 1,
-        //     'doc_status' => 2,
-        //     'doc_flow'=>1,
-        // ]);
         DB::table('flows')->insert([
             'flow_title' => 'Check Point DPM',
             'flow_description' => 'TEsting Dokumen',
@@ -144,92 +110,5 @@ class User extends Seeder
             'actor_can_decline' => 1,
             'actor_can_commit' => 1,
         ]);
-        // DB::table('files')->insert([
-        //     'file_filepath' => 'file.txt',
-        //     'file_name' => 'File Nya.txt',
-        //     'file_document' => 1,
-        //     'file_uploader' => 3,
-        //     'file_origin' => 1,
-        // ]);
-        // DB::table('document_process')->insert([
-        //     'process_document' => 1,
-        //     'process_actor' => 2,
-        //     'process_flows' => 1,
-        //     'process_reason' => '',
-        //     'process_status' => 2,
-        // ]);
-        // DB::table('document_process')->insert([
-        //     'process_document' => 1,
-        //     'process_actor' => 3,
-        //     'process_flows' => 2,
-        //     'process_reason' => '',
-        //     'process_status' => 1,
-        // ]);
-        // DB::table('document_process')->insert([
-        //     'process_document' => 2,
-        //     'process_actor' => 2,
-        //     'process_flows' => 3,
-        //     'process_reason' => '',
-        //     'process_status' => 1,
-        // ]);
-
-        // DB::table('document_process')->insert([
-        //     'process_document' => 3,
-        //     'process_actor' => 2,
-        //     'process_flows' => 1,
-        //     'process_reason' => '',
-        //     'process_status' => 1,
-        // ]);
-
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 1,
-        //     'log_actor' => 2,
-        //     'log_flows' => 1,
-        //     'log_reason' => '',
-        //     'log_status' => 0,
-        // ]);
-
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 1,
-        //     'log_actor' => 2,
-        //     'log_flows' => 1,
-        //     'log_reason' => '',
-        //     'log_status' => 1,
-        // ]);
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 1,
-        //     'log_actor' => 2,
-        //     'log_flows' => 1,
-        //     'log_reason' => '',
-        //     'log_status' => 2,
-        // ]);
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 3,
-        //     'log_actor' => 3,
-        //     'log_flows' => 2,
-        //     'log_reason' => '',
-        //     'log_status' => 0,
-        // ]);
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 3,
-        //     'log_actor' => 3,
-        //     'log_flows' => 2,
-        //     'log_reason' => '',
-        //     'log_status' => 1,
-        // ]);
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 2,
-        //     'log_actor' => 2,
-        //     'log_flows' => 3,
-        //     'log_reason' => '',
-        //     'log_status' => 0,
-        // ]);
-        // DB::table('document_logs')->insert([
-        //     'log_document' => 2,
-        //     'log_actor' => 2,
-        //     'log_flows' => 3,
-        //     'log_reason' => '',
-        //     'log_status' => 1,
-        // ]);
     }
 }

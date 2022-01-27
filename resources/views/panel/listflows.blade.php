@@ -2,7 +2,7 @@
 @section('title', 'Buat Dokumen Baru')
 @section('content')
 <div class="row ">
-    <div class="col-12 grid-margin">
+    <div class="col-md-12 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ $title }}</h4>
@@ -10,7 +10,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                               
                                 <th> Judul Alur </th>
                                 <th> Deskripsi Alur </th>
                                 <th> Actor Alur </th>
@@ -29,13 +28,23 @@
                                 <td> <div class="badge badge-outline-primary">{{ $val->actor }}</div></td>
                                 <td> <div class="badge badge-outline-{{ $val->actor_can_decline?'success':'danger' }}">{{ $val->actor_can_decline?'Ya':'Tidak' }}</div></td>
                                 <td> <div class="badge badge-outline-{{ $val->actor_can_commit?'success':'danger' }}">{{ $val->actor_can_commit?'Ya':'Tidak' }}</div></td>
-                                <td> <a href="{{ route('documentflow.edit',$val->id) }}" class="btn btn-success">Ubah</a> </td>
+                                <td> 
+                                    <form method="POST" action="{{ route('documentflow.destroy',[$val->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="{{ route('documentflow.edit',$val->id) }}" class="btn btn-success">Ubah</a> 
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                               
+                                </td>
                             </tr>
                             @endforeach
                           
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <a href="{{ route('documentflow.create',[$docflow->id]) }}" class="btn btn-success">+ Tambahkan Flow</a> 
             </div>
         </div>
     </div>

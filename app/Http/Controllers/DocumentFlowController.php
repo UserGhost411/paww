@@ -47,10 +47,11 @@ class DocumentFlowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $doc = DocumentFlow::all();
-        return view("panel/createdoc",compact('doc'));
+        $docflow = DocumentFlow::findOrFail($id);
+        $actors = User::where('level',2)->get();
+        return view("panel/addflow",compact('actors','docflow'));
     }
 
     /**
@@ -64,30 +65,23 @@ class DocumentFlowController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'flow' => 'required|exists:document_flow,id',
+            'actor' => 'required|exists:users,id',
             'des' => 'required',
-            'docfile' => 'required|file'
+            'docflow' => 'required|exists:document_flow,id',
+            'decline' => 'required|boolean',
+            'commit' => 'required|boolean',
+        
         ]);
 
-        $doc = new Document;
-        $doc->doc_title = $request->title;
-        $doc->doc_description = $request->des;
-        $doc->flow_step = 1;
-        $doc->doc_status = 0;
-        $doc->doc_flow = $request->flow;
-        $doc->doc_author = Auth::id();
-        $doc->save();
-        $file = $request->file('docfile');
-        $path = $request->file('docfile')->store('');
-        $newfiles = new Files;
-        $newfiles->file_filepath = $path;
-        $newfiles->file_name = $file->getClientOriginalName();
-        $newfiles->file_uploader = Auth::id();
-        $newfiles->file_document = $doc->id;
-        $newfiles->file_origin = true;
-        $newfiles->save();
-
-        return redirect()->action([DocumentController::class, 'index'])->with("info","Data telah ditambahkan");
+        $flow = new Flows;
+        $flow->flow_title = $request->title;
+        $flow->flow_description = $request->des;
+        $flow->flow_id = $request->docflow;
+        $flow->flow_actor = $request->actor;
+        $flow->actor_can_decline = $request->decline;
+        $flow->actor_can_commit = $request->commit;
+        $flow->save();
+        return redirect()->route("documentflow.show",[ $request->docflow])->with("info","Data telah ditambahkan");
     }
 
     /**
@@ -146,8 +140,11 @@ class DocumentFlowController extends Controller
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy($id)
     {
-        //
+        $d = Flows::findOrFail($id);
+        $bak = $d->flow_id;
+        $d->delete();
+        return redirect()->route('documentflow.show',[$bak]);
     }
 }

@@ -61,33 +61,14 @@ class ProcessController extends Controller
         return true;
     }
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $doc = DocumentFlow::all();
-        return view("panel/createdoc",compact('doc'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
     public function upload(Request $request){
+
+        $request->validate(['docfile' => 'required|file']);
         $file = $request->file('docfile');
         $path = $request->file('docfile')->store('');
         $newfiles = new Files;
@@ -160,16 +141,7 @@ class ProcessController extends Controller
         $file->delete();
         return redirect()->route('process.show', [$iddoc])->with("info","Data telah ditambahkan");
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Document $document)
-    {
-        
-    }
+   
 
     /**
      * Update the specified resource in storage.
@@ -178,8 +150,10 @@ class ProcessController extends Controller
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Document $document)
+    public function update(Request $request, $iddoc)
     {
+        $document = Document::findOrFail($iddoc);
+        $request->validate(['act' => 'required']);
         if($request->act=='dec'){
             $progress = DB::table('document_process')->where('process_document',$document->id)->where('process_actor', Auth::id())->where('process_flows',$request->process_flows)->first();
             $updateprog = DocumentProcess::findOrFail($progress->id);
@@ -196,7 +170,10 @@ class ProcessController extends Controller
             $newlog->save();
             return redirect()->route('process.index')->with("info","Document Telah DiTolak");
         }else if($request->act=='acc'){
-            $progress = DB::table('document_process')->where('process_document',$document->id)->where('process_actor', Auth::id())->where('process_flows',$request->process_flows)->first();
+            $progress = DB::table('document_process')
+            ->where('process_document',$document->id)
+            ->where('process_actor', Auth::id())
+            ->where('process_flows',$request->process_flows)->first();
             $updateprog = DocumentProcess::findOrFail($progress->id);
             $updateprog->process_status=2;
             $updateprog->save();
@@ -215,14 +192,5 @@ class ProcessController extends Controller
         return redirect()->route('process.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Document $document)
-    {
-        //
-    }
+
 }
