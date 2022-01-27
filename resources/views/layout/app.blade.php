@@ -52,6 +52,14 @@
               <span class="menu-title">Alur Dokumen</span>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('user.index') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">Pengguna</span>
+            </a>
+          </li>
           @endif
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('document.create') }}">

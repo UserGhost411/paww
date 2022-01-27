@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\DocumentFlowController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,15 @@ Route::get('/document/active', [DocumentController::class, 'active'])->name("doc
 Route::get('/document/nonactive', [DocumentController::class, 'nonactive'])->name("document.nonactive")->middleware('auth');
 Route::resource('/document', DocumentController::class)->middleware('auth');
 Route::resource('/process', ProcessController::class,['except' => ['update']])->middleware('auth');
+Route::resource('/user', UserController::class)->middleware('auth');
 Route::get('/process/download/{file}', [ProcessController::class, 'download'])->name("process.download");
 Route::get('/document/download/{file}', [DocumentController::class, 'download'])->name("document.download");
 Route::post('/process/upload', [ProcessController::class, 'upload'])->name("process.commit.upload");
 Route::delete('/process/delete/{file}', [ProcessController::class, 'delete'])->name("process.commit.delete");
 Route::match( ['put', 'patch'], '/process/{document}', [ProcessController::class, 'update'])->name("process.update")->middleware('auth');
-Route::resource('/profile', ProfileController::class,['except' => ['update','edit','store','destroy','create']])->middleware('auth');
+Route::resource('/profile', ProfileController::class,['except' => ['update','show','edit','store','destroy','create']])->middleware('auth');
+Route::get('/profile/password', [ProfileController::class, 'password'])->name("profile.password")->middleware('auth');
+Route::post('/profile/password', [ProfileController::class, 'postPassword'])->middleware('auth');
 Route::post('/profile/upload', [ProfileController::class, 'upload'])->name("profile.upload")->middleware('auth');
 Route::match( ['put', 'patch'], '/profile', [ProfileController::class, 'update'])->name("profile.update")->middleware('auth');
 Route::post('/process/upload', [ProcessController::class, 'upload'])->name("process.commit.upload")->middleware('auth');

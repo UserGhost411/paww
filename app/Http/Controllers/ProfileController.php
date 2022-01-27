@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class ProfileController extends Controller
@@ -27,8 +28,26 @@ class ProfileController extends Controller
         $profile->save();
         return json_encode(array("pic"=>str_replace("https://","",$request->pic),"status"=>"ok"));
     }
+    public function password()
+    {
+        $profile = User::findOrFail(Auth::id());
+        return view("panel/password",compact('profile'));
+    }
+    public function postPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+            'repassword' => 'required',
+        ]);
 
-
+        if($request->password==$request->repassword){
+            $profile = User::findOrFail(Auth::id());
+            $profile->password=Hash::make($request->password);;
+            $profile->save();
+            return redirect()->route("profile.index");
+        }
+        return redirect()->back();
+    }
     public function update(Request $request)
     {
         $request->validate([
