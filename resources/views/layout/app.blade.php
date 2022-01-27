@@ -55,7 +55,7 @@
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('user.index') }}">
               <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
+                <i class="mdi mdi-account-supervisor"></i>
               </span>
               <span class="menu-title">Pengguna</span>
             </a>
